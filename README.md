@@ -182,14 +182,12 @@ new Dialog().open()
 babel编译：
 
 ```bash
-npx babel log.js --out-file log.bable.js
+npx babel log.js --out-file log.babel.js
 ```
 
 执行结果如下：
-```bash
-node log.babel.js
 
-# 结果输出
+```bash
 before 前置日志: false
 Dialog open
 after 后置日志: true
