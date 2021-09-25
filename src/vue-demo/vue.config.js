@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  publicPath: '/vue-demo/dist',
+  publicPath: '/paradigm-aop/src/vue-demo/dist',
   chainWebpack: config => {
     config.resolve.alias.set('@', path.resolve('src'))
   },
