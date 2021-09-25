@@ -62,6 +62,8 @@ AOP在Web领域的应用场景还是比较多的，下面就从几个简单案�
 
 注：以下所有案例都是基于ES7的装饰器编码，以OOP的方式来实现，对于装饰器模式有疑问可以查看官方文档：[装饰器](https://es6.ruanyifeng.com/#docs/decorator)
 
+案例demo项目地址：[paradigm-aop](https://github.com/zhaowei-plus/paradigm-aop)
+
 <!--
 
 #### 属性只读（ readonly）
