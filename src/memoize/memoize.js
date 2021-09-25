@@ -1,6 +1,4 @@
 // 备用录模式
-// npx babel memoize.js --out-file memoize.babel.js
-// https://www.cnblogs.com/mengff/p/9661648.html
 
 // 缓存数据 Map
 const memoized = new WeakMap();
@@ -12,7 +10,7 @@ function memoize(_, name, descriptor) {
   // 重写 get
   descriptor.get = function() {
     const target = memoization(this);
-    if (name in _target) {
+    if (name in target) {
       return target[name];
     }
     // 调用getter获取值并缓存

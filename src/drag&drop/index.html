@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>elementFromPoint</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        .box {
+            cursor: pointer;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pane"></div>
+    <script>
+        const createBox = (x, y, text) => {
+            const box = document.createElement('div')
+            box.className = 'box'
+            box.innerText = text
+            box.style.left = x + 'px'
+            box.style.top = y + 'px'
+            pane.appendChild(box)
+        }
+
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 6; j++) {
+                createBox(i * 80, j * 80, j * 6 + i + 1)
+            }
+        }
+        document.body.addEventListener('mousedown', mosueDownEvent => {
+            const element = document.elementFromPoint(mosueDownEvent.clientX, mosueDownEvent.clientY)
+            if (element) {
+                console.log('pane:', element.closest('#pane'))
+                element.style.backgroundColor = 'red'
+                const startPosition = {
+                    left: Number(element.style.left.replace('px', '')),
+                    top: Number(element.style.top.replace('px', ''))
+                }
+                const onMouseMove = (event) => {
+                    element.style.left = event.clientX - mosueDownEvent.clientX + startPosition.left + 'px'
+                    element.style.top = event.clientY - mosueDownEvent.clientY + startPosition.top + 'px'
+                }
+                document.addEventListener('mousemove', onMouseMove)
+                element.addEventListener('mouseup', event => {
+                    document.removeEventListener('mousemove', onMouseMove)
+                    element.style.backgroundColor = 'white'
+                    element.style.posotion
+                }, {
+                    once: true
+                })
+            }
+        })
+
+        let count = 1
+
+        // 空闲的时候运行
+        const idleId = requestIdleCallback(() => {
+            console.log('requestIdleCallback:', count)
+            count++
+        }, {
+            timeout: 1000
+        })
+
+        requestIdleCallback(() => {
+            cancelIdleCallback(idleId)
+        }, {
+            timeout: 5000
+        })
+
+        class Drag {
+          id
+
+          constructor(props) {
+            this.id = props?.id
+          }
+
+          onMouseDown () {
+
+          }
+
+          onMouseMove () {
+
+          }
+
+          onMouseUp () {
+
+          }
+        }
+    </script>
+</body>
+
+</html>

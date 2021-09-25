@@ -29,17 +29,6 @@ function after (afterFn = function () {}) {
   }
 }
 
-const logReport = (target, name, descriptor) => {
-  const value = descriptor.value
-
-  descriptor.value = function () {
-    console.log('logReport:', this.id, this.page)
-    return value.apply(arguments)
-  }
-
-  return descriptor
-}
-
 class Dialog {
   constructor() {
     this.visible = false

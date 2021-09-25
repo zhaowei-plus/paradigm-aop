@@ -1,0 +1,8 @@
+// ts.config
+{ 
+  "compilerOptions": { 
+    "target": "ES5", 
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true
+  }
+}

@@ -14,24 +14,19 @@ function debounce (fn, wait = 200) {
   }
 }
 
-// function debounce (interval = 200) {
-//   return function (_, name, descriptor) {
-//     const value = descriptor.value
-//     let timeout
+// 节流
+function throttle (func, delay = 200) {
+  let prev = Date.now()
+  return function () {
+    const now = Date.now()
+    if (now - prev >= delay) {
+      func.apply(this, arguments)
+      prev = Date.now()
+    }
+  }
+}
 
-//     descriptor.value = function () {
-//       if (timeout !== null) {
-//         clearTimeout(timeout)
-//       }
-//       timeout = setTimeout(() => {
-//         value.apply(this, arguments)
-//       }, interval)
-//     }
-
-//     return descriptor
-//   }
-// }
-
+// AOP 防抖改造
 function decoratorDebounce (wait = 200) {
   return function (_, name, descriptor) {
     descriptor.value = debounce(descriptor.value, wait)
@@ -39,19 +34,10 @@ function decoratorDebounce (wait = 200) {
   }
 }
 
-function throttle (delay = 200) {
-  return function (target, name, descriptor) {
-    const value = descriptor.value
-    let prev = Date.now()
-
-    descriptor.value = function () {
-      const next = Date.now()
-      if (next - prev >= delay) {
-        value.apply(this, arguments)
-        prev = Date.now()
-      }
-    }
-
+// AOP 节流改造
+function decoratorThrottle (wait = 200) {
+  return function (_, name, descriptor) {
+    descriptor.value = throttle(descriptor.value, wait)
     return descriptor
   }
 }
@@ -62,13 +48,13 @@ class Dialog {
     console.log('input: ', Date.now(), params)
   }
 
-  @throttle(1000)
+  @decoratorThrottle(1000)
   scroll (params) {
     console.log('scroll: ', Date.now(), params)
   }
 
   start () {
-    for (let i = 0; i< 1000_0000; i ++) {
+    for (let i = 0; i <= 1000_0000; i ++) {
       this.input(i.toString().padStart(8, '0'))
       this.scroll(i.toString().padStart(8, '0'))
     }
